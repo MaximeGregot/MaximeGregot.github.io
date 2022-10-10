@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <?!= include("Stylesheet") ?>
+</head>
+
+<body id="gradient">
+  <div id="background">
+    <div>
+      <h1 id="title">La pizza du jeudi</h1>
+    </div>
+
+    <div>
+      <table id="tabPizza">
+        <th><a>Chargement des pizzas...</a></th>
+      </table>
+
+      <table id="tabBoisson">
+        <th><a>Chargement des boissons...</a></th>
+      </table>
+    </div>
+  </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  // Gets the pizza data and creates the table
+  function showPizzas(pizzaData) {
+    var tab = $("#tabPizza");
+    tab.empty();
+    var htmlPizza = "";
+    for(var i = 0; i<pizzaData.length; i++) {
+      htmlPizza += '<td class="pizzaBlock"><input type="radio" name="pizza"/><table><td><a class="medium">' + pizzaData[i][0] + '</a></td><td><img src="' + pizzaData[i][3] + '"></td><td><a class="small wrap">' + pizzaData[i][1] + '</a></td></table></td>';
+    }
+    tab.append(htmlPizza);
+  }
+
+  $(function() {
+    google.script.run.withSuccessHandler(showPizzas).getPizzaData();
+  });
+
+</script>
+</html>
